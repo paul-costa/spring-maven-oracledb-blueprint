@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <title>Spring Maven Home</title>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    
+	    <script th:inline="javascript">
+			var allTextsFromDb = /*[[${ allTextsFromDb }]]*/ 'null';
+		</script>	
+	</head>
+	<body>
+	    <p>Hello from Spring Maven</p>
+	    
+	    <p>Database Output:</p>
+	    <div id="databaseOutput"></div>
+	    
+	    
+	    <script>
+			textsArray = allTextsFromDb.split("|l|");
+			
+			textsArray.forEach((el,i) => {
+					textsArray[i]=el.split("|v|");
+			});
+			
+			documentTemplateString = "";
+			
+			textsArray.forEach((el,i) => {
+				el.forEach((elInner,j) => {
+					documentTemplateString+=elInner;
+					
+
+					if(j%2==0 && i<textsArray.length-1) {
+						documentTemplateString+=" - "
+					}
+				});
+				documentTemplateString+="<br>";
+			});
+		
+			document.getElementById("databaseOutput").innerHTML=documentTemplateString;
+		</script>
+	</body>
+</html>
